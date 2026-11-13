@@ -348,6 +348,7 @@ document.querySelector('#pause-button').addEventListener('click',()=>{paused=!pa
 document.querySelector('#restart-button').addEventListener('click',()=>setProgram(activeId));
 document.querySelector('#speed').addEventListener('input',e=>speed=Number(e.target.value));
 document.querySelector('#fullscreen-button').addEventListener('click',()=>{if(!document.fullscreenElement)wrap.requestFullscreen?.();else document.exitFullscreen?.();});
+document.addEventListener('fullscreenchange',()=>requestAnimationFrame(resize));
 lockPanel.addEventListener('pointerdown',()=>{if(lockPanel.dataset.engaged){lockPanel.hidden=true;lockPanel.removeAttribute('data-engaged');}});
 window.addEventListener('keydown',e=>{
   if(lockPanel.dataset.engaged){lockPanel.hidden=true;lockPanel.removeAttribute('data-engaged');return;}
