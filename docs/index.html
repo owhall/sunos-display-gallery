@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2eee3">
+  <meta name="description" content="Interactive browser recreations of ten SunOS animation and display programs.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>SunOS Display Programs — Browser Recreations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="#top" aria-label="SunOS display programs home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span><strong>SunOS</strong><small>DISPLAY PROGRAMS · BROWSER RECREATIONS</small></span>
+    </a>
+    <div class="edition">REFERENCE EDITION <b>4.x</b></div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">A SMALL MUSEUM OF MOVING PIXELS</p>
+      <h1>Ten programs.<br><em>One old workstation.</em></h1>
+      <p class="dek">Documented SunOS animation, demonstration, and screen-locking programs—reimagined with plain HTML, CSS, and JavaScript.</p>
+      <div class="hero-meta"><span>NO EMULATOR</span><span>NO DEPENDENCIES</span><span>EST. 1980s → 2026</span></div>
+    </section>
+
+    <section class="workbench" aria-labelledby="gallery-title">
+      <div class="rail">
+        <div class="rail-heading">
+          <p class="eyebrow">PROGRAM INDEX</p>
+          <h2 id="gallery-title">Select a display</h2>
+        </div>
+        <nav id="program-list" aria-label="Program gallery"></nav>
+      </div>
+
+      <article class="viewer">
+        <div class="window-bar">
+          <span class="window-dots" aria-hidden="true"><i></i><i></i></span>
+          <span id="window-title">/usr/games/life</span>
+          <span class="window-host">sun-3/60</span>
+        </div>
+        <div class="screen-wrap" id="screen-wrap">
+          <canvas id="screen" tabindex="0" aria-label="Program display canvas"></canvas>
+          <div id="lock-panel" class="lock-panel" hidden></div>
+          <div class="screen-badge"><span id="status-light"></span><b id="status-text">RUNNING</b><span id="fps-label">30 FPS</span></div>
+        </div>
+        <div class="controls" aria-label="Program controls">
+          <button id="pause-button" type="button">Ⅱ&nbsp; Pause</button>
+          <button id="restart-button" type="button">↻&nbsp; Restart</button>
+          <div class="speed-control">
+            <label for="speed">SPEED</label>
+            <input id="speed" type="range" min="0.35" max="2" step="0.05" value="1">
+          </div>
+          <button id="fullscreen-button" class="push-right" type="button">⛶&nbsp; Fullscreen</button>
+        </div>
+        <div class="program-notes">
+          <div>
+            <p class="eyebrow">CURRENT PROGRAM</p>
+            <h2><code id="program-name">life</code> <span id="accuracy-label" class="accuracy">DOCUMENTED CORE</span></h2>
+          </div>
+          <p id="program-description"></p>
+          <p id="program-caveat" class="caveat"></p>
+        </div>
+      </article>
+    </section>
+
+    <section class="context">
+      <div class="context-heading">
+        <p class="eyebrow">READ THE LABEL</p>
+        <h2>Recreation, not restoration.</h2>
+      </div>
+      <div class="context-copy">
+        <p>SunOS manuals preserve names and broad functions, but often not palettes, frame timing, geometry, random seeds, or hardware-specific rendering. This gallery keeps the documented concept and makes the uncertain parts visible.</p>
+        <div class="legend"><span><i class="solid"></i> Documented core</span><span><i class="stripe"></i> Interpretive detail</span></div>
+      </div>
+      <ol class="method">
+        <li><b>01</b><span><strong>Read</strong>Period manuals and command summaries establish what each program did.</span></li>
+        <li><b>02</b><span><strong>Rebuild</strong>Canvas primitives replace framebuffer and graphics-processor calls.</span></li>
+        <li><b>03</b><span><strong>Disclose</strong>Every uncertain behavior is labeled beside the running program.</span></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>BUILT FROM DOCUMENTATION, NOT ORIGINAL SOURCE · <a href="https://www.typewritten.org/Manual/Sun/SunOS/4.1.1/man1/lockscreen.html">VIEW A PERIOD MANUAL</a></p>
+    <p>HTML · CSS · JAVASCRIPT</p>
+  </footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
