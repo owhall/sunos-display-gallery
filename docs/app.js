@@ -328,9 +328,20 @@ function drawLockDefault(dt){state.acc+=dt*speed;if(state.acc>.11){stepLockDefau
 function renderLockPanel(){
   lockPanel.hidden=false;
   lockPanel.innerHTML=`<div class="lock-card"><p class="eyebrow">LOCKSCREEN SIMULATOR</p><h3>Choose graphics program</h3><p>Historical role, safe browser behavior. This will not lock your workstation.</p><label for="lock-choice">GFX-PROGRAM</label><select id="lock-choice"><option>life</option><option>rain</option><option>worms</option><option>brotcube</option></select><button id="engage-lock" type="button">Engage simulated lock</button></div>`;
-  document.querySelector('#engage-lock').addEventListener('click',()=>{const choice=document.querySelector('#lock-choice').value;lockPanel.innerHTML=`<div class="lock-card"><p class="eyebrow">WORKSTATION LOCKED · SIMULATION</p><h3>${choice} is running</h3><p>Press any key or click to return. No password is requested or stored.</p></div>`;lockPanel.dataset.engaged='true';});
+  document.querySelector('#engage-lock').addEventListener('click',()=>{
+    const choice=document.querySelector('#lock-choice').value;
+    starters[choice]();
+    lockPanel.innerHTML=`<div class="lock-card"><p class="eyebrow">WORKSTATION LOCKED · SIMULATION</p><h3>${choice} is running</h3><p>Press any key or click anywhere to return to the launcher. No password is requested or stored.</p></div>`;
+    lockPanel.dataset.engaged='true';
+  });
 }
 function drawLockscreen(dt){state.angle+=dt*speed;clear();ctx.strokeStyle=palette.dim;for(let i=0;i<18;i++){const r=(i*42+state.angle*90)%(Math.max(state.w,state.h));ctx.beginPath();ctx.arc(state.w/2,state.h/2,r,0,TAU);ctx.stroke();}sunStripe(state.w/2,state.h/2,130,state.angle*.2);}
+
+function exitSimulatedLock(){
+  if(!lockPanel.dataset.engaged)return false;
+  setProgram('lockscreen');
+  return true;
+}
 
 function hud(text){ctx.save();ctx.textAlign='left';ctx.textBaseline='alphabetic';ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(12,12,Math.min(270,text.length*8+18),27);ctx.fillStyle=palette.pale;ctx.font='11px monospace';ctx.fillText(text,22,30);ctx.restore();}
 
@@ -349,9 +360,9 @@ document.querySelector('#restart-button').addEventListener('click',()=>setProgra
 document.querySelector('#speed').addEventListener('input',e=>speed=Number(e.target.value));
 document.querySelector('#fullscreen-button').addEventListener('click',()=>{if(!document.fullscreenElement)wrap.requestFullscreen?.();else document.exitFullscreen?.();});
 document.addEventListener('fullscreenchange',()=>requestAnimationFrame(resize));
-lockPanel.addEventListener('pointerdown',()=>{if(lockPanel.dataset.engaged){lockPanel.hidden=true;lockPanel.removeAttribute('data-engaged');}});
+lockPanel.addEventListener('pointerdown',()=>{exitSimulatedLock();});
 window.addEventListener('keydown',e=>{
-  if(lockPanel.dataset.engaged){lockPanel.hidden=true;lockPanel.removeAttribute('data-engaged');return;}
+  if(exitSimulatedLock()){e.preventDefault();return;}
   if(activeId==='snake'){
     if(e.key==='W'){e.preventDefault();takeSnakeControl();snakeWarp();return;}
     if(e.key==='p'||e.key==='d'){e.preventDefault();takeSnakeControl();snakeDirectionHint();return;}

@@ -79,6 +79,10 @@ input[type="range"] { accent-color: var(--sun); width: 110px; }
 
 .lock-panel { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; background: rgba(6,10,8,.7); color: #e8f7df; }
 .lock-panel[hidden] { display: none; }
+.lock-panel[data-engaged] { place-items: end start; padding: 18px; background: rgba(6,10,8,.16); cursor: pointer; }
+.lock-panel[data-engaged] .lock-card { width: min(390px, calc(100% - 20px)); padding: 18px 20px; box-shadow: 6px 6px 0 rgba(240,90,40,.55); pointer-events: none; }
+.lock-panel[data-engaged] .lock-card h3 { font-size: 22px; }
+.lock-panel[data-engaged] .lock-card p { margin-bottom: 0; }
 .lock-card { width: min(420px, calc(100% - 40px)); border: 1px solid #80a978; background: rgba(4,11,7,.94); box-shadow: 10px 10px 0 rgba(240,90,40,.55); padding: 28px; }
 .lock-card h3 { margin: 0 0 8px; font: 700 30px Arial, sans-serif; }
 .lock-card p { font-size: 12px; line-height: 1.5; }
